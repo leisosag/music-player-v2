@@ -34,7 +34,7 @@ const songs = [
   },
 ];
 
-// verifica si esta reproduciendo la cancion
+// verifica si esta reproduciendo una cancion
 let isPlaying = false;
 
 // controladores del reproductor
@@ -84,6 +84,22 @@ let songIndex = 0;
 // on load - primera cancion
 loadSong(songs[songIndex]);
 
+// funcion encargada de calcular segundos y minutos de la duracion total y el tiempo actual de reproduccion
+const displayTime = (time, operator) => {
+  if (operator === '/') {
+    // obtengo los minutos
+    n = Math.floor(time / 60);
+  } else {
+    // obtengo los segundos
+    n = Math.floor(time % 60);
+    // paso a 2 digitos los segundos
+    if (n < 10) {
+      n = `0${n}`;
+    }
+  }
+  return n;
+};
+
 // actualiza la barra de progreso y el tiempo
 const updateProgressBar = (e) => {
   if (isPlaying) {
@@ -91,26 +107,16 @@ const updateProgressBar = (e) => {
     // actualiza la barra
     const progressPercent = (currentTime / duration) * 100;
     progress.style.width = `${progressPercent}%`;
-    // calcula la duracion
-    const durationMinutes = Math.floor(duration / 60);
-    let durationSeconds = Math.floor(duration % 60);
-    if (durationSeconds < 10) {
-      durationSeconds = `0${durationSeconds}`;
-    }
+    // calcula la duracion total
+    const durationMinutes = displayTime(duration, '/');
+    let durationSeconds = displayTime(duration, '%');
+    // tiempo actualizado de reproduccion
+    const currentMinutes = displayTime(currentTime, '/');
+    let currentSeconds = displayTime(currentTime, '%');
     // evita que se imprima NaN
-    if (durationSeconds) {
+    if (currentSeconds && durationSeconds) {
       // actualiza la duracion en el DOM
       durationEl.textContent = `${durationMinutes}:${durationSeconds}`;
-    }
-    // para el tiempo actualizado
-    const currentMinutes = Math.floor(currentTime / 60);
-    let currentSeconds = Math.floor(currentTime % 60);
-    if (currentSeconds < 10) {
-      currentSeconds = `0${currentSeconds}`;
-    }
-    // evita que se imprima NaN
-    if (currentSeconds) {
-      // actualiza la duracion en el DOM
       currentTimeEl.textContent = `${currentMinutes}:${currentSeconds}`;
     }
   }
