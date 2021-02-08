@@ -116,8 +116,18 @@ const updateProgressBar = (e) => {
   }
 };
 
+// actualiza la reproduccion segun el punto en la barra de duracion
+const setProgressBar = (e) => {
+  const width = e.srcElement.clientWidth;
+  const clickX = e.offsetX;
+  const { duration } = music;
+  music.currentTime = (clickX / width) * duration;
+};
+
 // event listeners
 playBtn.addEventListener('click', () => (isPlaying ? pauseSong() : playSong()));
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
 music.addEventListener('timeupdate', updateProgressBar);
+progressContainer.addEventListener('click', setProgressBar);
+music.addEventListener('ended', nextSong);
