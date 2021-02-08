@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@400;700&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
@@ -10,11 +11,28 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 12px;
+  font-family: 'Spartan', sans-serif;
+}
+.player-container {
+  height: 500px;
+  width: 400px;
+  background-color: #e6e6e6;
+  border-radius: 20px;
+  box-shadow: 15px 15px 30px 5px rgba(0, 0, 0, 0.3);
 }
 .img-container {
+  height: 300px;
+  width: 300px;
   position: relative;
   top: -50px;
   left: 50px;
+}
+.img-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 5px 5px 30px 5px rgba(0, 0, 0, 0.5);
 }
 h2 {
   font-size: 25px;
@@ -34,7 +52,7 @@ h3 {
   cursor: pointer;
   margin: 40px 20px;
   height: 4px;
-  width: 90%;
+  width: 80%;
 }
 .progress {
   background: #242323;
@@ -61,6 +79,11 @@ h3 {
   font-size: 30px;
   color: rgb(129, 129, 129);
   margin-right: 30px;
+  cursor: pointer;
+  user-select: none; /* para que no se pueda seleccionar, porque es una tipografia */
+}
+.fas:hover {
+  filter: brightness(80%);
 }
 .main-button {
   font-size: 40px;
@@ -68,8 +91,12 @@ h3 {
   top: 3px;
 }
 /* Media Query: iPhone (Vertical) */
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 450px) {
+  .player-container {
+    width: 90vw;
+  }
   .img-container {
+    left: 12px;
     left: 29px;
   }
   h2 {
